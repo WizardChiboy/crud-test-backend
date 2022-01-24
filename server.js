@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import Posts from "./Models/post.js";
+import bodyparser from "body-parser";
 
 dotenv.config();
 
@@ -35,17 +36,29 @@ db.once("open", () => {
 
 // api endpoint
 
+// home page
 app.get("/", (req, res) => res.status(200).send("hello don"));
 
-// app.post("/posts", (req, res) => res.status(200).send("posts"));
+// get all posts
+app.get("/posts/all", (req, res) => {
+  Posts.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 
+// add some post
 app.post("/posts", async (req, res) => {
   const post = await new Posts({
     title: req.body.title,
     excerpt: req.body.excerpt,
     content: req.body.content,
-    content: req.body.timestamp,
   });
+
+  //   console.log(post);
 
   try {
     const newPost = await post.save();
@@ -56,5 +69,4 @@ app.post("/posts", async (req, res) => {
 });
 
 // port listen
-
 app.listen(port, console.log(`hey am connected to port: ${port}`));
