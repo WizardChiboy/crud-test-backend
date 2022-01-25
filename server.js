@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import Posts from "./Models/post.js";
-import bodyparser from "body-parser";
 
 dotenv.config();
 
