@@ -36,7 +36,7 @@ db.once("open", () => {
 // api endpoint
 
 // home page
-app.get("/", (req, res) => res.status(200).send("hello don"));
+app.get("/", (req, res) => res.res(200).send("hello don"));
 
 // get all posts
 app.get("/posts/all", (req, res) => {
